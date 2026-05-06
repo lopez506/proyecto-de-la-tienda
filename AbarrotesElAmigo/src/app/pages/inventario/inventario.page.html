@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar style="--background: #1a5c2a; --color: white;">
+    <ion-title style="color: white;">Inventario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Barra de búsqueda -->
+  <ion-searchbar
+    placeholder="Buscar producto..."
+    [(ngModel)]="textoBusqueda"
+    (ionInput)="buscar()"
+    style="--background: #ffffff; --color: #222; --placeholder-color: #999;">
+  </ion-searchbar>
+
+  <!-- Lista de productos con semáforo -->
+  <ion-list style="margin: 0 12px; border-radius: 10px; overflow: hidden;">
+    <ion-item *ngFor="let producto of productosFiltrados"
+      [style.--background]="obtenerColorFondo(producto)"
+      [style.--color]="'#222'">
+
+      <ion-label>
+  <h2 style="font-weight: 600; color: #000;">{{ producto.nombre }}</h2>
+  <div style="border-bottom: 1px solid rgba(0,0,0,0.95); margin: 4px 0;"></div>
+  <p style="color: #000;">{{ producto.categoria }}</p>
+  <p style="color: #000;">Stock: {{ producto.cantidad }} unidades</p>
+</ion-label>
+
+      <!-- Botón para agregar stock -->
+      <ion-button slot="end" fill="clear" (click)="agregarStock(producto)">
+        <ion-icon name="add-circle-outline" style="color: #1a5c2a; font-size: 26px;"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+
+    <ion-item *ngIf="productosFiltrados.length === 0">
+      <ion-label style="text-align: center; color: #aaa;">
+        Sin productos registrados
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

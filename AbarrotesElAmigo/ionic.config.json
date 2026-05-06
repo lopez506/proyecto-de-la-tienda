@@ -1,0 +1,7 @@
+{
+  "name": "AbarrotesElAmigo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

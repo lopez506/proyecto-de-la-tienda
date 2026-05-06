@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar style="--background: #1a5c2a;">
+    <ion-title style="color: white; font-weight: bold;">
+      Abarrotes El Amigo
+      <div style="font-size: 12px; font-weight: normal; opacity: 0.8;">Pantalla de cobro</div>
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar style="--background: white;">
+    <ion-segment [(ngModel)]="paginaActual" (ionChange)="cambiarPagina()">
+      <ion-segment-button value="cobro">
+        <ion-label>Cobrar</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="inventario">
+        <ion-label>Inventario</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="productos">
+        <ion-label>Productos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Total a cobrar -->
+  <div style="background: #1a5c2a; margin: 12px; border-radius: 12px; padding: 16px; text-align: center; color: white;">
+    <div style="font-size: 13px; opacity: 0.85;">Total a cobrar</div>
+    <div style="font-size: 36px; font-weight: bold;">₡{{ total | number:'1.2-2' }}</div>
+  </div>
+
+  <!-- Acceso rápido -->
+<div style="padding: 0 12px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+    <div style="font-size: 13px; color: #666;">Acceso rápido</div>
+    <!-- Botón para configurar accesos rápidos -->
+    <ion-button fill="clear" size="small" (click)="configurarBotonesRapidos()"
+      style="--color: #1a5c2a; font-size: 12px;">
+      <ion-icon name="settings-outline" slot="start"></ion-icon>
+      Configurar
+    </ion-button>
+  </div>
+  <ion-grid style="padding: 0;">
+    <ion-row>
+      <ion-col *ngFor="let boton of botonesRapidos" size="4" style="padding: 4px;">
+        <div (click)="agregarBotonRapido(boton)"
+          style="border: 1px solid #ddd; border-radius: 10px; padding: 10px; text-align: center; cursor: pointer; background: white;">
+          <div style="font-size: 24px;">🛒</div>
+          <div style="font-size: 11px; font-weight: 500; color: #222;">{{ boton.nombre }}</div>
+          <div style="font-size: 11px; color: #666;">₡{{ boton.precio }}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+  <!-- Botones Cobrar y Finalizar -->
+  <div style="display: flex; gap: 8px; padding: 8px 12px;">
+  <!-- Botón Cobrar - verde oscuro con texto blanco -->
+  <ion-button expand="block" style="flex: 1; --background: #1a5c2a; --color: white; --border-radius: 8px;" (click)="escanear()">
+    <ion-icon name="camera" slot="start"></ion-icon>
+    Cobrar
+  </ion-button>
+  <!-- Botón Finalizar cobro - verde medio con texto blanco -->
+  <ion-button expand="block" style="flex: 1; --background: #1a5c2a; --color: white; --border-radius: 8px;" (click)="finalizarVenta()">
+    Finalizar cobro
+  </ion-button>
+</div>
+  <!-- Paga con y Tarjeta -->
+  <div style="display: flex; gap: 8px; padding: 0 12px 8px;">
+    <ion-item style="flex: 1; --border-radius: 8px; --border-color: #ddd;">
+      <ion-input
+        type="number"
+        placeholder="Paga con"
+        [(ngModel)]="montoPagado"
+        (ionInput)="calcularCambio()">
+      </ion-input>
+    </ion-item>
+    <ion-button fill="outline" style="--border-radius: 8px; --color: #1a5c2a; --border-color: #ddd; height: 48px; margin-top: 8px;">
+      Tarjeta
+    </ion-button>
+  </div>
+
+  <!-- Lista de productos -->
+  <ion-list style="margin: 0 12px; border-radius: 10px; overflow: hidden;">
+    <ion-item *ngFor="let item of items">
+      <ion-label>
+        <span style="font-size: 14px;">{{ item.producto.nombre }}</span>
+      </ion-label>
+      <ion-note slot="end" style="font-size: 14px; color: #333;">
+        ₡{{ item.subtotal | number:'1.2-2' }}
+      </ion-note>
+    </ion-item>
+    <ion-item *ngIf="items.length === 0">
+      <ion-label style="color: #aaa; text-align: center;">Sin productos aún</ion-label>
+    </ion-item>
+    <ion-item style="--background: #f9f9f9;">
+      <ion-label><strong>Total</strong></ion-label>
+      <ion-note slot="end"><strong>₡{{ total | number:'1.2-2' }}</strong></ion-note>
+    </ion-item>
+  </ion-list>
+
+  <!-- Cambio -->
+  <div *ngIf="montoPagado > 0" style="margin: 8px 12px; display: flex; justify-content: space-between; align-items: center;">
+    <div style="font-size: 22px; font-weight: bold;">₡{{ montoPagado | number:'1.2-2' }}</div>
+    <div style="background: #e8f4fd; color: #1a5c2a; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;">
+      Cambio: ₡{{ cambio | number:'1.2-2' }}
+    </div>
+  </div>
+
+</ion-content>

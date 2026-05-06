@@ -1,0 +1,22 @@
+/* Fondo general de la pantalla */
+ion-content {
+  --background: #f4f4f4;
+  --color: #222;
+}
+
+/* Fondo y texto de cada fila */
+ion-item {
+  --background: #ffffff;
+  --color: #222;
+}
+
+/* Fondo de la lista */
+ion-list {
+  background: #ffffff;
+}
+
+/* Color del header */
+ion-toolbar {
+  --background: #1a5c2a;
+  --color: white;
+}

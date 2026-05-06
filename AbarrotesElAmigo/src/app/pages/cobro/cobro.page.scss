@@ -1,0 +1,34 @@
+/* Fondo general de la pantalla - color gris claro */
+ion-content {
+  --background: #f4f4f4;
+  --color: #222;
+}
+
+/* Fondo y texto de cada fila de la lista */
+ion-item {
+  --background: #ffffff;
+  --color: #222;
+}
+
+/* Fondo de la lista de productos */
+ion-list {
+  background: #ffffff;
+}
+
+/* Fondo de la barra de tabs (Cobrar, Inventario, Productos) */
+ion-segment {
+  --background: #ffffff;
+}
+
+/* Color de los tabs - gris cuando están inactivos, verde cuando están activos */
+ion-segment-button {
+  --color: #555;
+  --color-checked: #1a5c2a;
+  --indicator-color: #1a5c2a;
+}
+
+/* Color del texto y placeholder del campo "Paga con" */
+ion-input {
+  --color: #222;
+  --placeholder-color: #999;
+}
